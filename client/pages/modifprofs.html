@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Détail</title>
+</head>
+<body>
+  <div id="main-profs">
+    <h1>Détails</h1>
+    <form id="profsModif">
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="name">Nom</label>
+            <br>
+            <input type="text" class="form-control" id="name">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="prenom">Prénom</label>
+            <br>
+            <input type="text" class="form-control" id="prenom">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="datedenaissance">Date de naissance</label>
+            <br>
+            <input type="text" class="form-control" id="datedenaissance">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="adresse">Adresse</label>
+            <br>
+            <input type="text" class="form-control" id="adresse">
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="validation">
+      <button class="btn btn-outline-success" id="modif">Modifier</button>
+    </div>
+  </div>
+  <script src="/js/modifprofs.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+*{
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.main-index{
+   width: 80%;
+   margin: auto; 
+}
+
+.main-index h1{
+  text-align: center;
+ } 
+
+.liste{
+    display: flex;
+    flex-direction: column;
+}
+

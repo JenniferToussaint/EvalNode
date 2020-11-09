@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Liste Ecole</title>
+</head>
+<body>
+  <div id="main-ecole">
+    <a href="/">Accueil</a>
+    <h1>LISTE ECOLES</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col-8">
+          <table class="table table-sm table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Adresse</th>
+                <th>Département</th>
+                <th>Modification</th>
+                <th>Suppression</th>
+              </tr>
+            </thead>
+            <tbody id="ecole">
+
+            </tbody>
+          </table>
+        </div>
+        <div class="col-4" id="form">
+          <form name="form" id="formSpe">
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="name">Nom</label>
+                  <br>
+                  <input type="text" class="form-control" id="name">
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="adresse">Adresse</label>
+                  <br>
+                  <input type="text" class="form-control" id="adresse">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="departement">Département</label>
+                  <br>
+                  <input type="text" class="form-control" id="departement">
+                </div>
+              </div>
+            </div>
+          
+          </form>
+          <div class="validation">
+            <button class="btn btn-outline-success" id="valid">Valider</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/js/ecole.js"></script>
+</body>
+</html>
