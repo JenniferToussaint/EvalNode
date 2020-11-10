@@ -10,12 +10,14 @@ function addEcole(){
         name: name.value,
         adresse: adresse.value,
         departement: departement.value
-    }
+    };
+
     xhttp.open('POST', '/ecole', true);
     xhttp.setRequestHeader('Content-type', 'Application/json');
     xhttp.send(JSON.stringify(tmp)); // methode qui converti un objet en string
     addOneLine(tmp);
      document.forms['formSpe'].reset(); 
+     window.location.href = '/pages/ecoles.html';
 };
 
 // Je créé un event listener au clic
@@ -26,6 +28,13 @@ btn.addEventListener('click', (e) => {
 
     addEcole(); 
 });
+
+function deleteEcole(id){
+
+    xhttp.open('DELETE', '/ecole/' + id,true);
+    xhttp.send();
+    window.location.href = '/pages/ecoles.html'; // recharge la page
+}
 
 
 // Ajoute une ligne a mon tableau
@@ -46,6 +55,18 @@ function addOneLine(school) {
     link.innerText = 'Modifications'; // Rajoute du texte dans le lien
     tdLink.appendChild(link); // ajoute le lien dans la celulle
     newLine.appendChild(tdLink);
+
+    //Je créé le bouton suppression
+    var tdSuppr = document.createElement('td');
+    var btnSuppr = document.createElement('button');
+    btnSuppr.innerText = 'Suppression';
+    btnSuppr.classList.add('btn', 'btn-outline-danger');
+    tdSuppr.appendChild(btnSuppr);
+    newLine.appendChild(tdSuppr);
+
+    btnSuppr.addEventListener('click', (e) => {
+        deleteEcole(school._id);
+    });
 
     tab.appendChild(newLine);
 }

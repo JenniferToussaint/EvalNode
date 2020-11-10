@@ -2,6 +2,10 @@
     font-family: 'Roboto Condensed', sans-serif;
 }
 
+h1{
+    text-align: center;
+    padding: 2%;
+}
 .main-index{
    width: 80%;
    margin: auto; 
@@ -16,3 +20,13 @@
     flex-direction: column;
 }
 
+#modif{
+
+    width: 80%;
+    margin: auto;
+}
+
+.validation{
+    width: 10%;
+    margin: auto;
+}

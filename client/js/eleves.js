@@ -34,6 +34,15 @@ btn.addEventListener('click', (e) => {
     addEleve(); 
 });
 
+
+function deleteEleves(id){
+   
+    xhttp.open('DELETE', '/eleves/' + id,true);
+    xhttp.send();
+    window.location.href = '/pages/eleves.html'; // recharge la page
+}
+
+
 // Ajoute une ligne a mon tableau
 
 function addOneLine(student) {
@@ -53,6 +62,18 @@ function addOneLine(student) {
     link.innerText = 'Modifications'; // Rajoute du texte dans le lien
     tdLink.appendChild(link); // ajoute le lien dans la celulle
     newLine.appendChild(tdLink);
+    
+    //Je créé le bouton suppression
+    var tdSuppr = document.createElement('td');
+    var btnSuppr = document.createElement('button');
+    btnSuppr.innerText = 'Suppression';
+    btnSuppr.classList.add('btn', 'btn-outline-danger');
+    tdSuppr.appendChild(btnSuppr);
+    newLine.appendChild(tdSuppr);
+
+    btnSuppr.addEventListener('click', (e) => {
+        deleteEleves(student._id);
+    });
 
     tab.appendChild(newLine);
 }

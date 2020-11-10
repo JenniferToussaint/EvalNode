@@ -32,6 +32,13 @@ btn.addEventListener('click', (e) => {
     addProf(); 
 });
 
+
+function deleteProfs(id){
+    xhttp.open('DELETE', '/profs/' + id,true);
+    xhttp.send();
+    window.location.href = '/pages/profs.html'; // recharge la page
+}
+
 // Ajoute une ligne a mon tableau
 
 function addOneLine(teacher) {
@@ -50,6 +57,18 @@ function addOneLine(teacher) {
     link.innerText = 'Modifications'; // Rajoute du texte dans le lien
     tdLink.appendChild(link); // ajoute le lien dans la celulle
     newLine.appendChild(tdLink);
+
+    //Je créé le bouton suppression
+    var tdSuppr = document.createElement('td');
+    var btnSuppr = document.createElement('button');
+    btnSuppr.innerText = 'Suppression';
+    btnSuppr.classList.add('btn', 'btn-outline-danger');
+    tdSuppr.appendChild(btnSuppr);
+    newLine.appendChild(tdSuppr);
+
+    btnSuppr.addEventListener('click', (e) => {
+        deleteProfs(teacher._id);
+    });
 
     tab.appendChild(newLine);
 }

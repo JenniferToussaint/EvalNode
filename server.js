@@ -9,7 +9,7 @@ const Prof = require('./model/modelprof');
 
 //Connexion a mon compte MongoCloud
 const uri = "mongodb+srv://Jennifer:3004@cluster0.lcbpv.mongodb.net/Cluster0?retryWrites=true&w=majority";
-
+mongoose.set('useUnifiedTopology', true);
 // DEMARRAGE DU SERVEUR
 
 var app = express();
@@ -35,6 +35,9 @@ app.use('/js', express.static('./client/js'));
 app.use('/css', express.static('./client/css'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+mongoose.set('useFindAndModify', false);
+
+
 
 
 
@@ -136,6 +139,7 @@ app.get('/ecole/:id', (req, res) =>{
     //pour effectuer une recherche on va utiliser le modèle
     //BodyParser permet de conserver l'id dans req.params.id
     Ecole.findOne({_id: req.params.id}, (err, obj) =>{
+    
         if(err){
             // on gère l'erreur
             console.log(err);
@@ -157,6 +161,17 @@ app.get('/ecole/:id', (req, res) =>{
  
         }); 
 
+        app.delete('/ecole/:id', (req, res) =>{
+            Ecole.deleteOne({_id: req.params.id}, (err, obj) =>{
+                if(err) {
+            
+                    console.log(err);
+                    res.send(500);
+                }
+                res.sendStatus(200);
+            });
+            });
+
         /////////////////////////////////////////////////////////////////////////
 
     //GET Eleves
@@ -174,9 +189,11 @@ app.get('/eleves/:id', (req, res) =>{
         })
     });
 
+    
+
      // PUT Eleve
  app.put('/eleves/:id', (req, res) =>{
-    Eleve.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}, (err, obj) =>{
+    Eleve.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true, }, (err, obj) =>{
         if(err){
             console.log(err);
             return res.send(500);
@@ -186,6 +203,16 @@ app.get('/eleves/:id', (req, res) =>{
 
     }); 
 
+    app.delete('/eleves/:id', (req, res) =>{
+        Eleve.deleteOne({_id: req.params.id}, (err, obj) =>{
+            if(err) {
+                console.log(err);
+                res.send(500);
+            }
+            res.sendStatus(200);
+        });
+        });
+
 
     ///////////////////////////////////////////////////
 
@@ -193,7 +220,7 @@ app.get('/eleves/:id', (req, res) =>{
 app.get('/profs/:id', (req, res) =>{
     //pour effectuer une recherche on va utiliser le modèle
     //BodyParser permet de conserver l'id dans req.params.id
-    Ecole.findOne({_id: req.params.id}, (err, obj) =>{
+    Prof.findOne({_id: req.params.id}, (err, obj) =>{
         if(err){
             // on gère l'erreur
             console.log(err);
@@ -218,3 +245,14 @@ app.get('/profs/:id', (req, res) =>{
     });
 
     });     
+
+
+    app.delete('/profs/:id', (req, res) =>{
+        Prof.deleteOne({_id: req.params.id}, (err, obj) =>{
+            if(err) {
+                console.log(err);
+                res.send(500);
+            }
+            res.sendStatus(200);
+        });
+        });
