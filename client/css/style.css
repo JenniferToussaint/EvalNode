@@ -4,6 +4,7 @@
 
 h1{
     text-align: center;
+    font-size: 5vh;
     padding: 2%;
 }
 .main-index{
@@ -18,7 +19,24 @@ h1{
 .liste{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    border: thick double black;
+    height: 300px;
 }
+
+.liste a{
+text-decoration: none;
+text-align: center;
+margin:2%;
+font-size: 3vh;
+color: black;
+}
+
+.liste a:hover{
+    color: crimson;
+   
+}
+
 
 #modif{
 
@@ -29,4 +47,24 @@ h1{
 .validation{
     width: 10%;
     margin: auto;
+}
+
+nav{
+    font-size: 2vh;
+}
+
+
+#modif-ecole{
+    width: 80%;
+    margin: auto;
+}
+
+#main-eleves{
+    width: 80%;
+    margin: auto;  
+}
+
+#main-profs{
+    width: 80%;
+    margin: auto;    
 }

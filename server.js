@@ -1,4 +1,6 @@
-// DECLARATION DES CONSTANTES
+///////////////////////////////////////
+///// DECLARATION DES CONSTANTES //////
+///////////////////////////////////////
 
 const express = require('express');
 const mongoose= require('mongoose');
@@ -10,7 +12,10 @@ const Prof = require('./model/modelprof');
 //Connexion a mon compte MongoCloud
 const uri = "mongodb+srv://Jennifer:3004@cluster0.lcbpv.mongodb.net/Cluster0?retryWrites=true&w=majority";
 mongoose.set('useUnifiedTopology', true);
-// DEMARRAGE DU SERVEUR
+
+/////////////////////////
+// DEMARRAGE DU SERVEUR//
+/////////////////////////
 
 var app = express();
 
@@ -28,8 +33,10 @@ promise.then((db) =>{
 
 
 
+/////////////////////
+////CONFIGURATION////
+/////////////////////
 
-//CONFIGURATION
 app.use('/pages', express.static('./client/pages'));
 app.use('/js', express.static('./client/js'));
 app.use('/css', express.static('./client/css'));
@@ -42,8 +49,10 @@ mongoose.set('useFindAndModify', false);
 
 
 
+///////////////
+////ROUTES/////
+///////////////
 
-// ROUTES
 
 //Routes de demarrage pour charger automatiquement la page html
 
@@ -51,7 +60,12 @@ app.get('/', (req, res) =>{
     res.sendFile(__dirname + '/client/index.html');
 });
 
-//Post Ecole
+/////////////////////////////////////////////////////////////// PARTIE ECOLE //////////////////////////////////////////////////////////////////////////////////
+
+//////////////
+//POST ECOLE//
+//////////////
+
 app.post('/ecole', (req, res) =>{
     var newEcole = new Ecole(req.body);
     console.log(newEcole);
@@ -64,33 +78,10 @@ app.post('/ecole', (req, res) =>{
     });
 });
 
-//Post Eleve
-app.post('/eleves', (req, res) =>{
-    var newEleve = new Eleve (req.body);
-    console.log(newEleve);
-    newEleve.save((err, obj) =>{
-        if(err) {
-            console.log(err);
-            return res.send(500);
-        }
-        res.sendStatus(200);
-    });
-});
 
-//Post Profs
-app.post('/profs', (req, res) =>{
-    var newProf = new Prof (req.body);
-    console.log(newProf);
-    newProf.save((err, obj) =>{
-        if(err) {
-            console.log(err);
-            return res.send(500);
-        }
-        res.sendStatus(200);
-    });
-});
-
-// GET ecole
+//////////////
+//GET ECOLE//
+//////////////
 
 app.get('/ecole', (req, res) =>{
 
@@ -103,7 +94,83 @@ app.get('/ecole', (req, res) =>{
     });
 });
 
-// GET elève
+
+
+
+//////////////
+//GET ECOLE//
+//////////////
+
+
+app.get('/ecole/:id', (req, res) =>{
+    Ecole.findOne({_id: req.params.id}, (err, obj) =>{
+    
+        if(err){
+            console.log(err);
+            return res.send(500);
+        }
+    
+        return res.send(obj);
+        })
+    });
+
+
+//////////////
+//PUT ECOLE//
+//////////////
+
+
+ app.put('/ecole/:id', (req, res) =>{
+    Ecole.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}, (err, obj) =>{
+        if(err){
+            console.log(err);
+            return res.send(500);
+        }
+        res.send(obj);
+    });
+ 
+    }); 
+
+/////////////////
+///DELETE ECOLE//
+/////////////////
+  
+    app.delete('/ecole/:id', (req, res) =>{
+            Ecole.deleteOne({_id: req.params.id}, (err, obj) =>{
+                if(err) {
+            
+                    console.log(err);
+                    res.send(500);
+                }
+                res.sendStatus(200);
+            });
+            });
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////// PARTIE ELEVES //////////////////////////////////////////////////////////////////////////////////
+
+
+
+///////////////
+//POST ELEVES//
+///////////////
+
+app.post('/eleves', (req, res) =>{
+    var newEleve = new Eleve (req.body);
+    console.log(newEleve);
+    newEleve.save((err, obj) =>{
+        if(err) {
+            console.log(err);
+            return res.send(500);
+        }
+        res.sendStatus(200);
+    });
+});
+
+///////////////
+///GET ELEVES//
+///////////////
 
 app.get('/eleves', (req, res) =>{
 
@@ -116,7 +183,80 @@ app.get('/eleves', (req, res) =>{
     });
 });
 
-// GET prof
+
+///////////////
+///GET ELEVES//
+///////////////
+
+
+    app.get('/eleves/:id', (req, res) =>{
+        Eleve.findOne({_id: req.params.id}, (err, obj) =>{
+            if(err){
+                console.log(err);
+                return res.send(500);
+            }
+        
+            return res.send(obj);
+            })
+        });
+    
+///////////////
+///PUT ELEVES//
+///////////////
+
+     app.put('/eleves/:id', (req, res) =>{
+        Eleve.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true, }, (err, obj) =>{
+            if(err){
+                console.log(err);
+                return res.send(500);
+            }
+            res.send(obj);
+        });
+    
+        }); 
+
+//////////////////
+///DELETE ELEVES//
+//////////////////
+
+        app.delete('/eleves/:id', (req, res) =>{
+            Eleve.deleteOne({_id: req.params.id}, (err, obj) =>{
+                if(err) {
+                    console.log(err);
+                    res.send(500);
+                }
+                res.sendStatus(200);
+            });
+            });
+    
+    
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////// PARTIE PROFS //////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+///////////////
+//POST PROFS///
+///////////////
+app.post('/profs', (req, res) =>{
+    var newProf = new Prof (req.body);
+    console.log(newProf);
+    newProf.save((err, obj) =>{
+        if(err) {
+            console.log(err);
+            return res.send(500);
+        }
+        res.sendStatus(200);
+    });
+});
+
+
+
+///////////////
+//GET PROFS///
+///////////////
 
 app.get('/profs', (req, res) =>{
 
@@ -130,93 +270,10 @@ app.get('/profs', (req, res) =>{
 });
 
 
+///////////////
+//GET PROFS///
+///////////////
 
-
-
-//////////////////////////////////////////////////
-//GET ECOLE
-app.get('/ecole/:id', (req, res) =>{
-    //pour effectuer une recherche on va utiliser le modèle
-    //BodyParser permet de conserver l'id dans req.params.id
-    Ecole.findOne({_id: req.params.id}, (err, obj) =>{
-    
-        if(err){
-            // on gère l'erreur
-            console.log(err);
-            return res.send(500);
-        }
-    
-        return res.send(obj);
-        })
-    });
-    // PUT Ecole
-    app.put('/ecole/:id', (req, res) =>{
-        Ecole.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}, (err, obj) =>{
-            if(err){
-                console.log(err);
-                return res.send(500);
-            }
-            res.send(obj);
-        });
- 
-        }); 
-
-        app.delete('/ecole/:id', (req, res) =>{
-            Ecole.deleteOne({_id: req.params.id}, (err, obj) =>{
-                if(err) {
-            
-                    console.log(err);
-                    res.send(500);
-                }
-                res.sendStatus(200);
-            });
-            });
-
-        /////////////////////////////////////////////////////////////////////////
-
-    //GET Eleves
-app.get('/eleves/:id', (req, res) =>{
-    //pour effectuer une recherche on va utiliser le modèle
-    //BodyParser permet de conserver l'id dans req.params.id
-    Eleve.findOne({_id: req.params.id}, (err, obj) =>{
-        if(err){
-            // on gère l'erreur
-            console.log(err);
-            return res.send(500);
-        }
-    
-        return res.send(obj);
-        })
-    });
-
-    
-
-     // PUT Eleve
- app.put('/eleves/:id', (req, res) =>{
-    Eleve.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true, }, (err, obj) =>{
-        if(err){
-            console.log(err);
-            return res.send(500);
-        }
-        res.send(obj);
-    });
-
-    }); 
-
-    app.delete('/eleves/:id', (req, res) =>{
-        Eleve.deleteOne({_id: req.params.id}, (err, obj) =>{
-            if(err) {
-                console.log(err);
-                res.send(500);
-            }
-            res.sendStatus(200);
-        });
-        });
-
-
-    ///////////////////////////////////////////////////
-
-    //GET Prof
 app.get('/profs/:id', (req, res) =>{
     //pour effectuer une recherche on va utiliser le modèle
     //BodyParser permet de conserver l'id dans req.params.id
@@ -231,10 +288,11 @@ app.get('/profs/:id', (req, res) =>{
         })
     });
 
- 
-    
-    
- // PUT Prof
+
+///////////////
+///PUT PROFS///
+///////////////
+
  app.put('/profs/:id', (req, res) =>{
     Prof.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}, (err, obj) =>{
         if(err){
@@ -246,6 +304,9 @@ app.get('/profs/:id', (req, res) =>{
 
     });     
 
+/////////////////
+//DELETE PROFS///
+/////////////////
 
     app.delete('/profs/:id', (req, res) =>{
         Prof.deleteOne({_id: req.params.id}, (err, obj) =>{
